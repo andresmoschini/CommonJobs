@@ -1,0 +1,32 @@
+﻿  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span2">
+
+        <!--Sidebar content-->
+        Search: <input ng-model="query">
+        Sort by:
+        <select ng-model="orderProp">
+          <option value="name">Alphabetical</option>
+          <option value="age">Newest</option>
+        </select>
+
+      </div>
+      <div class="span10">
+        <!--Body content-->
+        <ul class="employees">
+
+          <li ng-repeat="employee in employees" class="thumbnail">
+            <a href="#/employees/{{employee.Id}}" class="thumb"><img ng-src="{{employee.imageUrl}}"></a>
+            <a href="#/employees/Edit/{{employee.Id}}">{{employee.LastName}}</a>
+            <p>{{employee.snippet}}</p>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <p id="status">Current filter: {{query}}</p>
+  
+  <pre>
+  {{employees | filter:query | orderBy:orderProp | json}}
+  </pre>
