@@ -69,6 +69,10 @@
     <Reference Include="Newtonsoft.Json, Version=4.0.8.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\Libs\RavenDB\Client\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\RavenDB\Client\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="Raven.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
       <HintPath>..\Libs\RavenDB\Client\Raven.Abstractions.dll</HintPath>
     </Reference>
@@ -77,6 +81,9 @@
     </Reference>
     <Reference Include="Raven.Client.Lightweight, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
       <HintPath>..\Libs\RavenDB\Client\Raven.Client.Lightweight.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.MvcIntegration">
+      <HintPath>..\Libs\RavenDB\Client\Raven.Client.MvcIntegration.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data.Entity" />
@@ -140,6 +147,7 @@
     <Content Include="app\partials\.gitignore" />
     <Content Include="app\partials\employee-detail.html" />
     <Content Include="app\partials\employee-list.html" />
+    <Content Include="Content\EditCommon\icon-edit.png" />
     <Content Include="Content\FilesListing\FilesListing.js" />
     <Compile Include="Controllers\ApplicantsController.cs" />
     <Compile Include="Controllers\AttachmentsController.cs" />
@@ -149,6 +157,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\SharedEntityAlternativeAuthorizationAttribute.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -156,7 +165,7 @@
     <Content Include="Content\1140.css" />
     <Content Include="Content\ApplicantsListing\ApplicantsListing.js" />
     <Content Include="Content\EditApplicant\EditApplicant.js" />
-    <Content Include="Content\EditEmployee\uploadAvatar.png" />
+    <Content Include="Content\EditCommon\uploadAvatar.png" />
     <Content Include="Content\EmployeesListing\EmployeesListing.js" />
     <Content Include="Content\Images\Actions-go-next-view-page-icon.png" />
     <Content Include="Content\Images\ajax-loader.gif" />
@@ -197,10 +206,15 @@
     <Content Include="Content\jquery.Jcrop.min.css" />
     <Content Include="Content\ListingCommon\QuickSearch.js" />
     <Content Include="Content\menu_style.css" />
+    <Content Include="Content\Tests\nervousTissueTest.html" />
     <Content Include="Content\Tests\FileListingTest.html" />
     <Content Include="Content\Tests\qunit\qunit.css" />
     <Content Include="Content\Tests\qunit\qunit.js" />
     <Content Include="Scripts\jquery.Jcrop.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js">
+      <DependentUpon>moment.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\url-generator.js" />
     <Content Include="Scripts\nervoustissue-uploader.js" />
     <Content Include="Views\Applicants\Edit.cshtml" />
@@ -225,6 +239,9 @@
     <Content Include="Views\Attachments\Index.cshtml" />
     <Content Include="Content\FilesListing\FilesListing.less" />
     <Content Include="Content\ListingCommon\ListingBase.less" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.xml" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.xml" />

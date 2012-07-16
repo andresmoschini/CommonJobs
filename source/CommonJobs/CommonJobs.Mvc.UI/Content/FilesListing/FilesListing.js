@@ -12,25 +12,21 @@ $(function () {
             return urlGenerator.action("AttachmentsQuickSearch", "Attachments", searchParameters);
         },
         fillOtherSearchParameters: function (searchParameters) {
-            //nothing to do here, the function is left for future addition of options
+            if ($("#SearchOnlyInFileName").prop("checked"))
+                searchParameters.SearchOnlyInFileName = true;
         }
     });
 
-    $("#quickSearchSubmit").click(function () {
+    $("#SearchOnlyInFileName, #quickSearchSubmit").click(function () {
         //It also catches "enter"s in form inputs
         qs.redirect();
-    });
-
-    $(".results").on("click", ".fileResult", function (e) {
-        e.preventDefault();
-        window.location = $(this).find(".fileTitle a").first().attr("href");
     });
 
     qs.search();
 });
 
 var FileSearchUtilities = {
-    fileIconFromExtension: function(fileName) {
+    fileIconFromExtension: function (fileName) {
         if (fileName == null) return urlGenerator.content("Images/filetypes/unknown.png");
 
         var extensionSeparatorLocation = fileName.lastIndexOf('.');
@@ -61,5 +57,24 @@ var FileSearchUtilities = {
     },
     urlToFile: function (attachmentId) {
         return urlGenerator.action("Get", "Attachments", attachmentId);
+    },
+    normalizeNewLines: function (text) {
+        return text.replace(/[\r\n]+|\s\s+/, '\n');
+    },
+    splitByNewLines: function (text) {
+        return this.normalizeNewLines(text).split('\n');
+    },
+    searchHighlight: function (text, matchString) {
+        if (!_.isString(matchString)) return text;
+
+        matchString = matchString
+            .replace(/[-[\]{}()+.,\\^$|#\s]/g, "\\$&")
+            .replace(/\*/g, "[^\\\s]*")
+            .replace(/\?/g, "[^\\\s]");
+            
+        if (!matchString) return text;
+
+        var regex = new RegExp('(\\\s|^)(' + matchString + '[^\\\s]*)(\\\s|$)', 'gi');
+        return text.replace(regex, '$1<span class="searchHighlighted">$2</span>$3');
     }
 };

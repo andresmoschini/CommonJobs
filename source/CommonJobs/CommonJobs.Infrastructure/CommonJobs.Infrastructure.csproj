@@ -40,6 +40,10 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\RavenDB\Client\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="Raven.Abstractions">
       <HintPath>..\Libs\RavenDB\Client\Raven.Abstractions.dll</HintPath>
     </Reference>
@@ -75,7 +79,7 @@
     <Compile Include="BaseSearchParameters.cs" />
     <Compile Include="EmployeeSearching\EmployeeSearchResult.cs" />
     <Compile Include="EmployeeSearching\EmployeeSearchParameters.cs" />
-    <Compile Include="EmployeeSearching\SearchEmployees.cs" />
+    <Compile Include="SharedLinks\SearchSharedEntity.cs" />
     <Compile Include="AttachmentIndexing\Attachments_ByContentExtractorConfigurationHash.cs" />
     <Compile Include="AttachmentSearching\Attachments_QuickSearch.cs" />
     <Compile Include="EmployeeSearching\Employee_QuickSearch.cs" />
@@ -86,6 +90,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SharedLinks\SharedLinks_Entities.cs" />
+    <Compile Include="EmployeeSearching\SearchEmployees.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

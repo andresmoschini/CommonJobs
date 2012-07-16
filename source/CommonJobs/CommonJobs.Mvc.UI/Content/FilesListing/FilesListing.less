@@ -24,7 +24,11 @@
 
 	&:hover {
 		background-color: @color_primary_lighter;
-		cursor: pointer;
+
+		a {
+			color: blue;
+			text-decoration: underline;
+		}
 	}
 }
 
@@ -77,4 +81,8 @@
    background-image: url("../../Content/Images/ajax-loader.gif");
    background-position: left center;
    background-repeat: no-repeat;
+}
+
+.searchHighlighted {
+	background-color: yellow;
 }
