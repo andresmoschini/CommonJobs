@@ -16,8 +16,8 @@
         <ul class="employees">
 
           <li ng-repeat="employee in employees" class="thumbnail">
-            <a href="#/employees/{{employee.Id}}" class="thumb"><img ng-src="{{employee.imageUrl}}"></a>
-            <a href="#/employees/Edit/{{employee.Id}}">{{employee.LastName}}</a>
+            <!--<a href="?{{employee.Id}}" class="thumb"><img ng-src="{{employee.imageUrl}}"></a>-->
+            <a href="/angulardemo/employees/edit/{{employee.Id}}">{{employee.LastName}}</a>
             <p>{{employee.snippet}}</p>
           </li>
 

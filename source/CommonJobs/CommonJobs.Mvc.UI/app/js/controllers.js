@@ -11,6 +11,7 @@ function EmployeeListCtrl($scope, Employee) {
 
 
 function EmployeeDetailCtrl($scope, $routeParams, Employee) {
+    alert("Hola");
     //$scope.results = Employee.get({ employeeId: $routeParams.employeeId }, function (results) {
     //});
 

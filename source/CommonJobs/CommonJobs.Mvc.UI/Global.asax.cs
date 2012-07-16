@@ -23,6 +23,15 @@ namespace CommonJobs.Mvc.UI
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //hack: debe haber una forma más prolija de hacer esto, la idea es que si llega un request externo a 
+            //http://dominio/angulardemo/... siempre lo reciba nuestra página principal de angular
+            //"requires server-side configuration" (http://docs.angularjs.org/guide/dev_guide.services.$location)
+            routes.MapRoute(
+                "AngularApp",
+                "angulardemo/{*pathInfo}",
+                new { controller = "AngularApp", action = "Index", pathInfo = UrlParameter.Optional } // Parameter defaults
+            );
+            
             routes.MapRoute(
                 "Shared", // Route name
                 "{controller}/{action}/shared/{sharedCode}/{*id}", // URL with parameters
@@ -34,7 +43,6 @@ namespace CommonJobs.Mvc.UI
                 "{controller}/{action}/{*id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
-
         }
 
         protected override System.Reflection.Assembly[] GetIndexAssemblies()
