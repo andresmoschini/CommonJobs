@@ -5006,7 +5006,8 @@ LocationUrl.prototype = {
    * Has any change been replacing ?
    * @private
    */
-  $$replace: false,
+    $$replace: false,
+    $$preventLocationChangedEvent: false,
 
   /**
    * @ngdoc method
@@ -5177,9 +5178,13 @@ LocationUrl.prototype = {
    * record, instead of adding new one.
    */
   replace: function() {
-    this.$$replace = true;
-    return this;
-  }
+      this.$$replace = true;
+      return this;
+  },
+  preventLocationChangedEvent: function () {
+      this.$$preventLocationChangedEvent = true;
+      return this;
+  },
 };
 
 LocationHashbangUrl.prototype = inherit(LocationUrl.prototype);
@@ -5344,7 +5349,7 @@ function $LocationProvider(){
     }
 
     // update $location when $browser url changes
-    $browser.onUrlChange(function(newUrl) {
+    $browser.onUrlChange(function (newUrl) {
       if ($location.absUrl() != newUrl) {
         $rootScope.$evalAsync(function() {
           var oldUrl = $location.absUrl();
@@ -5370,7 +5375,9 @@ function $LocationProvider(){
           } else {
             $browser.url($location.absUrl(), $location.$$replace);
             $location.$$replace = false;
-            afterLocationChange(oldUrl);
+            if (!$location.$$preventLocationChangedEvent) {
+                afterLocationChange(oldUrl);
+            }
           }
         });
       }
@@ -5381,6 +5388,7 @@ function $LocationProvider(){
     return $location;
 
     function afterLocationChange(oldUrl) {
+        //Esto es lo que hace que se refresque todo
       $rootScope.$broadcast('$locationChangeSuccess', $location.absUrl(), oldUrl);
     }
 }];

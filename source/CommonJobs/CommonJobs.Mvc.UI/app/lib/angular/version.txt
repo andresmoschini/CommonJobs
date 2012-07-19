@@ -1,1 +1,10 @@
 1.0.0rc12
+
+Modificaciones
+
+* switchRouteMatcher
+   * https://github.com/angular/angular.js/pull/1147/files
+   * Agregada la posiblilidad de Catch-All sections to route.
+* LocationUrl
+   * https://github.com/angular/angular.js/pull/1151/files
+   * Agregada la posibilidad de omitir el evento de cambio de URL para no reinicializar todo

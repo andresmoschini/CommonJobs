@@ -139,9 +139,6 @@
       <DependentUpon>angular-sanitize.js</DependentUpon>
     </Content>
     <Content Include="app\lib\angular\angular.js" />
-    <Content Include="app\lib\angular\angular.min.js">
-      <DependentUpon>angular.js</DependentUpon>
-    </Content>
     <Content Include="app\lib\angular\version.txt" />
     <Content Include="app\partials\.gitignore" />
     <Content Include="app\partials\employee-detail.html" />
