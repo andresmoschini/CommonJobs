@@ -117,6 +117,20 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap\css\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\img\glyphicons-halflings-white.png" />
+    <Content Include="Content\bootstrap\img\glyphicons-halflings.png" />
+    <Content Include="Content\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\bootstrap\js\bootstrap.min.js">
+      <DependentUpon>bootstrap.js</DependentUpon>
+    </Content>
+    <Content Include="Content\bootstrap\less\tests\css-tests.css" />
+    <Content Include="Content\bootstrap\less\tests\css-tests.html" />
+    <Content Include="Content\bootstrap\less\tests\forms.html" />
+    <Content Include="Content\bootstrap\less\tests\navbar.html" />
     <Content Include="Content\EditCommon\icon-edit.png" />
     <Content Include="Content\FilesListing\FilesListing.js" />
     <Compile Include="Controllers\ApplicantsController.cs" />
@@ -221,6 +235,46 @@
     <Content Include="Content\JobSearches\JobSearches.less" />
     <Content Include="Views\JobSearches\Edit.cshtml" />
     <Content Include="Content\JobSearches\EditJobSearch.less" />
+    <Content Include="Content\bootstrap\less\accordion.less" />
+    <Content Include="Content\bootstrap\less\alerts.less" />
+    <Content Include="Content\bootstrap\less\bootstrap.less" />
+    <Content Include="Content\bootstrap\less\breadcrumbs.less" />
+    <Content Include="Content\bootstrap\less\button-groups.less" />
+    <Content Include="Content\bootstrap\less\buttons.less" />
+    <Content Include="Content\bootstrap\less\carousel.less" />
+    <Content Include="Content\bootstrap\less\close.less" />
+    <Content Include="Content\bootstrap\less\code.less" />
+    <Content Include="Content\bootstrap\less\component-animations.less" />
+    <Content Include="Content\bootstrap\less\dropdowns.less" />
+    <Content Include="Content\bootstrap\less\forms.less" />
+    <Content Include="Content\bootstrap\less\grid.less" />
+    <Content Include="Content\bootstrap\less\hero-unit.less" />
+    <Content Include="Content\bootstrap\less\labels-badges.less" />
+    <Content Include="Content\bootstrap\less\layouts.less" />
+    <Content Include="Content\bootstrap\less\mixins.less" />
+    <Content Include="Content\bootstrap\less\modals.less" />
+    <Content Include="Content\bootstrap\less\navbar.less" />
+    <Content Include="Content\bootstrap\less\navs.less" />
+    <Content Include="Content\bootstrap\less\pager.less" />
+    <Content Include="Content\bootstrap\less\pagination.less" />
+    <Content Include="Content\bootstrap\less\popovers.less" />
+    <Content Include="Content\bootstrap\less\progress-bars.less" />
+    <Content Include="Content\bootstrap\less\reset.less" />
+    <Content Include="Content\bootstrap\less\responsive-1200px-min.less" />
+    <Content Include="Content\bootstrap\less\responsive-767px-max.less" />
+    <Content Include="Content\bootstrap\less\responsive-768px-979px.less" />
+    <Content Include="Content\bootstrap\less\responsive-navbar.less" />
+    <Content Include="Content\bootstrap\less\responsive-utilities.less" />
+    <Content Include="Content\bootstrap\less\responsive.less" />
+    <Content Include="Content\bootstrap\less\scaffolding.less" />
+    <Content Include="Content\bootstrap\less\sprites.less" />
+    <Content Include="Content\bootstrap\less\tables.less" />
+    <Content Include="Content\bootstrap\less\thumbnails.less" />
+    <Content Include="Content\bootstrap\less\tooltip.less" />
+    <Content Include="Content\bootstrap\less\type.less" />
+    <Content Include="Content\bootstrap\less\utilities.less" />
+    <Content Include="Content\bootstrap\less\variables.less" />
+    <Content Include="Content\bootstrap\less\wells.less" />
     <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.xml" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.xml" />
