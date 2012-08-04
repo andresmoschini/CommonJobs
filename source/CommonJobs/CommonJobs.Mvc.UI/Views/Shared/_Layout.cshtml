@@ -31,6 +31,7 @@
     <link rel="shortcut icon" href="@Url.Content("~/Content/Images/favicon.ico")" />
     <script>
         $(function () {
+            $($(".card")[2]).css("background-color", "#EEEEEE").css("border-style", "dashed")
             $('#myModal').modal();
         });
     </script>
@@ -44,15 +45,29 @@
     <div class="bootstrap-scope">
     <div class="modal hide" id="myModal">
         <div class="modal-header">
+            <img alt=" MOSCHINI Andres Francisco's picture" src="/Attachments/Get/employees/276/2da4c3ac-7d4b-4a51-bbf9-094d99b88f51" class="cardPicture">
             <button type="button" class="close" data-dismiss="modal">×</button>
-            <h3>Modal header</h3>
+            <h3>Andrés Moschini</h3>
+            <h6>Adjuntar archivo</h6>
         </div>
         <div class="modal-body">
-            <p>One fine body…</p>
+            <p>Seleccione el slot para el archivo <code>Book1.xlsx</code>:</p>
+            <div style="margin: 3px; text-align: center">
+                <a href="#" class="btn btn-danger" style="width: 100px;">Alta Temprana</a>
+                <a href="#" class="btn btn-danger" style="width: 100px;">DNI</a>
+            </div>
+            <div style="margin: 3px; text-align: center">
+                <a href="#" class="btn btn-warning" style="width: 100px;">Título</a>
+            </div>
+            <div style="margin: 3px; text-align: center">
+                <a href="#" class="btn btn-primary" style="width: 100px;">Curriculum</a>
+            </div>
+            <div style="margin: 3px; text-align: center">
+                <a href="#" class="btn btn-success" style="width: 200px;">General</a>
+            </div>
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn" data-dismiss="modal">Close</a>
-            <a href="#" class="btn btn-primary">Save changes</a>
+            <a href="#" class="btn" data-dismiss="modal">Cancel</a>
         </div>
     </div>
     </div>
