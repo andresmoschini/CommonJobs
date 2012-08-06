@@ -3,26 +3,50 @@
 /* Controllers */
 
 function EmployeeListCtrl($scope, Employee, $location) {
-    $scope.terms = $location.search().term;
+    var qParams = {
+        term: 'term'
+    };
+
+    $scope.term = $location.search()[qParams.term];
     
-    $scope.$watch('term', function (value) {
-        $location.search("term", value ? value : null).replace().preventLocationChangedEvent();
+    $scope.$watch("term", function (newValue) {
+        newValue = newValue ? newValue : null;
+        $location.search(qParams.term, newValue).replace().preventLocationChangedEvent();
         search();
     });
+    
 
-    var currentQuery = null;
+    var OnlyLastCallback = function () {
+        var previous = null;
+
+        this.prepare = function (callback) {
+            if (previous) {
+                previous.callback = function (previous) {
+                    previous.callback = null;
+                };
+            }
+
+            previous = { callback: callback };
+
+            return previous;
+        };
+    };
+
+    var onlyLastCallback = new OnlyLastCallback();
+
     function search() {
-        //TODO: cancel previous searchs
         var parameters = {};
         if ($scope.term) {
             parameters.Term = $scope.term;
         }
-        if (currentQuery) {
-            //window.currentQuery = currentQuery;
-            //currentQuery.reject();
-        }
-        window.currentQuery = currentQuery = Employee.query(parameters, function (results) {
-            $scope.employees = results.Items; 
+
+        var prepared = onlyLastCallback.prepare(
+            function (results, parameters) {
+                $scope.employees = results.Items;
+            });
+
+        Employee.query(parameters, function (results) {
+            prepared.callback(results, parameters);
         });
     }
 }
