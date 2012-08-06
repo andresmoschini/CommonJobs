@@ -31,22 +31,22 @@
     -->
 
     <!-- cards -->
-    <div class="card column clickable item-card" ng-repeat="item in employees">
-        <img class="cardPicture" ng-show="hasPictureUrl(item)"
-            ng-src="{{getPictureUrl(item)}}"
-            alt="{{getFullName(item)}}'s picture" />
-        <img class="cardPicture" ng-hide="hasPictureUrl(item)"
+    <div class="card column clickable item-card" ng-repeat="item in employees" ng-controller="EmployeeListItemCtrl">
+        <img class="cardPicture" ng-show="hasPictureUrl()"
+            ng-src="{{getPictureUrl()}}"
+            alt="{{getFullName()}}'s picture" />
+        <img class="cardPicture" ng-hide="hasPictureUrl()"
             src="/Content/Images/NoPicture.png"
-            alt="No picture for {{getFullName(item)}}" />
+            alt="No picture for {{getFullName()}}" />
         <div class="cardDescription">
             <p class="name"><a class="clickable-link" href="/employees/edit/{{item.Id}}">
-                <span ng-show="hasFullName(item)">{{getFullName(item)}}</span>
-                <i ng-hide="hasFullName(item)">Sin nombre</i>
+                <span ng-show="hasFullName()">{{getFullName()}}</span>
+                <i ng-hide="hasFullName()">Sin nombre</i>
             </a></p>
             <p class="employeeProject">{{item.CurrentProject}}</p>
             <p class="position">{{item.CurrentPosition}}</p>
-            <p class="tags" ng-show="hasSkills(item)">
-                <span ng-repeat="tag in getSkills(item)" class="tag">{{tag}}</span>
+            <p class="tags" ng-show="hasSkills()">
+                <span ng-repeat="tag in getSkills()" class="tag">{{tag}}</span>
             </p>
         </div>
     </div>

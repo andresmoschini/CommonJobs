@@ -49,14 +49,18 @@ function EmployeeListCtrl($scope, Employee, $location) {
             prepared.callback(results, parameters);
         });
     }
+}
 
-    //Estas funciones se podrán mover a un subscope?
-    $scope.hasPictureUrl = function (employee) {
+function EmployeeListItemCtrl($scope, $location) {
+    //TODO: esto es feo y raro
+    var employee = $scope.item;
+
+    $scope.hasPictureUrl = function () {
         var photo = employee.Photo;
         return photo && ((photo.Thumbnail && photo.Thumbnail.Id) || (photo.Photo && photo.Photo.Id));
     }
 
-    $scope.getPictureUrl = function (employee) {
+    $scope.getPictureUrl = function () {
         var photo = employee.Photo;
         if (photo && photo.Thumbnail && photo.Thumbnail.Id) {
             return "/Attachments/Get/" + photo.Thumbnail.Id;
@@ -67,11 +71,11 @@ function EmployeeListCtrl($scope, Employee, $location) {
         }
     }
 
-    $scope.hasFullName = function (employee) {
+    $scope.hasFullName = function () {
         return employee.LastName || employee.FirstName;
     }
 
-    $scope.getFullName = function (employee) {
+    $scope.getFullName = function () {
         if (employee.LastName && employee.FirstName) {
             return employee.LastName + ", " + employee.FirstName;
         } else if (employee.LastName) {
@@ -83,11 +87,11 @@ function EmployeeListCtrl($scope, Employee, $location) {
         }
     }
 
-    $scope.hasSkills = function (employee) {
+    $scope.hasSkills = function () {
         return (_.isString(employee.Skills) && $.trim(employee.Skills).length > 0);
     }
 
-    $scope.getSkills = function (employee) {
+    $scope.getSkills = function () {
         if ($scope.hasSkills(employee)) {
             return _.map(employee.Skills.split(/\-|,/), function (tag) { return $.trim(tag); });
         } else {
@@ -95,6 +99,7 @@ function EmployeeListCtrl($scope, Employee, $location) {
         }
     }
 }
+
 
 function EmployeeDetailCtrl($scope, $routeParams, Employee) {
     alert("Hola");
