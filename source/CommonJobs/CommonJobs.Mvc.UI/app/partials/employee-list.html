@@ -1,32 +1,64 @@
-﻿  <div class="container-fluid">
-    <div class="row-fluid">
-      <div class="span2">
+﻿<div class="container searchContainer">
+    <h1>Administración de Empleados</h1>
 
-        <!--Sidebar content-->
-        Search: <input ng-model="term">
-        Sort by:
-        <select ng-model="orderProp">
-          <option value="name">Alphabetical</option>
-          <option value="age">Newest</option>
-        </select>
-
-      </div>
-      <div class="span10">
-        <!--Body content-->
-        <ul class="employees">
-
-          <li ng-repeat="employee in employees" class="thumbnail">
-            <!--<a href="?{{employee.Id}}" class="thumb"><img ng-src="{{employee.imageUrl}}"></a>-->
-            <a href="/angulardemo/employees/edit/{{employee.Id}}">{{employee.LastName}}</a>
-            <p>{{employee.snippet}}</p>
-          </li>
-
-        </ul>
-      </div>
+    <div class="row">
+        <div class="twocol"></div>
+        <div class="eightcol quickSearchContainer">
+            <div class="mainSearch">
+                <label for="term">Búsqueda rápida:</label>
+                <input type="text" id="quickSearch" ng-model="term"/>
+                <input type="button" id="quickSearchSubmit" value=">>" />
+            </div>
+            <!--
+            <div class="secondarySearch">
+                <label>¿Buscar en notas?</label><input type="checkbox" id="SearchInNotesCheck" name="SearchInNotes" @(Model.SearchInNotes ? "checked='checked'" : string.Empty) />
+                <label>¿Buscar en adjuntos?</label><input type="checkbox" id="SearchInAttachmentsCheck" name="SearchInAttachments" @(Model.SearchInAttachments ? "checked='checked'" : string.Empty) />
+            </div>
+            <p id="resultCountNotice">Hay <span id="resultCount">0</span> resultado(s).</p>
+            -->
+        </div>
+        <div class="twocol last"></div>
     </div>
-  </div>
-  <p id="status">Current filter: {{query}}</p>
-  
-  <pre>
-  {{employees | filter:query | orderBy:orderProp | json}}
-  </pre>
+</div>
+<div class="results">
+    <!-- new items button
+    <div class="card column clickable add-new-card">
+        <img class="cardPicture" src="@Url.Content("~/Content/Images/AddEmployee.png")" alt="Agregar nuevo..."  />
+        <div class="cardDescription">
+            <p>@Html.ActionLink("Agregar nuevo...", "Create", null, new { @class = "clickable-link" })</p>
+        </div>
+    </div>
+    -->
+
+    <!-- cards -->
+    <div class="card column clickable item-card" ng-repeat="item in employees">
+        <img class="cardPicture" ng-show="hasPictureUrl(item)"
+            ng-src="{{getPictureUrl(item)}}"
+            alt="{{getFullName(item)}}'s picture" />
+        <img class="cardPicture" ng-hide="hasPictureUrl(item)"
+            src="/Content/Images/NoPicture.png"
+            alt="No picture for {{getFullName(item)}}" />
+        <div class="cardDescription">
+            <p class="name"><a class="clickable-link" href="/employees/edit/{{item.Id}}">
+                <span ng-show="hasFullName(item)">{{getFullName(item)}}</span>
+                <i ng-hide="hasFullName(item)">Sin nombre</i>
+            </a></p>
+            <p class="employeeProject">{{item.CurrentProject}}</p>
+            <p class="position">{{item.CurrentPosition}}</p>
+            <p class="tags" ng-show="hasSkills(item)">
+                <span ng-repeat="tag in getSkills(item)" class="tag">{{tag}}</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- Get more items button
+    <div class="card column loading get-more-items">
+        <p class="ready-content">Click para obtener más...</p>
+    </div>
+    -->
+</div>
+
+<div style="clear:both;"></div>
+<pre>
+    {{employees | json}}
+</pre>

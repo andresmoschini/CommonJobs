@@ -49,8 +49,52 @@ function EmployeeListCtrl($scope, Employee, $location) {
             prepared.callback(results, parameters);
         });
     }
-}
 
+    //Estas funciones se podrán mover a un subscope?
+    $scope.hasPictureUrl = function (employee) {
+        var photo = employee.Photo;
+        return photo && ((photo.Thumbnail && photo.Thumbnail.Id) || (photo.Photo && photo.Photo.Id));
+    }
+
+    $scope.getPictureUrl = function (employee) {
+        var photo = employee.Photo;
+        if (photo && photo.Thumbnail && photo.Thumbnail.Id) {
+            return "/Attachments/Get/" + photo.Thumbnail.Id;
+        } else if (photo && photo.Photo && photo.Photo.Id) {
+            return "/Attachments/Get/" + photo.Photo.Id;
+        } else {
+            return null;
+        }
+    }
+
+    $scope.hasFullName = function (employee) {
+        return employee.LastName || employee.FirstName;
+    }
+
+    $scope.getFullName = function (employee) {
+        if (employee.LastName && employee.FirstName) {
+            return employee.LastName + ", " + employee.FirstName;
+        } else if (employee.LastName) {
+            return employee.LastName;
+        } else if (employee.FirstName) {
+            return employee.FirstName;
+        } else {
+            return null;
+        }
+    }
+
+    $scope.hasSkills = function (employee) {
+        return (_.isString(employee.Skills) && $.trim(employee.Skills).length > 0);
+    }
+
+    $scope.getSkills = function (employee) {
+        if ($scope.hasSkills(employee)) {
+            return _.map(employee.Skills.split(/\-|,/), function (tag) { return $.trim(tag); });
+        } else {
+            return null;
+        }
+    }
+}
 
 function EmployeeDetailCtrl($scope, $routeParams, Employee) {
     alert("Hola");
