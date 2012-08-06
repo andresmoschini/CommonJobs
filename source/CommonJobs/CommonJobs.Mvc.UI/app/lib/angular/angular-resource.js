@@ -365,14 +365,11 @@ angular.module('ngResource', ['ng']).
           }
 
           var value = this instanceof Resource ? this : (action.isArray ? [] : new Resource(data));
-          console.debug("http");
-          window.lastHttp = $http({
+          $http({
               method: action.method,
               url: route.url(extend({}, extractParams(data), action.params || {}, params)),
               data: data
-          });
-            //Me gustaría que window.lastHttp tenga un método cancel
-          window.lastHttp.then(function (response) {
+          }).then(function (response) {
               var data = response.data;
 
               if (data) {
