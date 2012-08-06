@@ -6,7 +6,7 @@ angular.module('commonjobs', ['commonjobsFilters', 'commonjobsServices'], functi
     $routeProvider
         .when('/angulardemo/employees', { templateUrl: '/app/partials/employee-list.html', controller: EmployeeListCtrl })
         .when('/angulardemo/employees/edit/*employeeId', { templateUrl: '/app/partials/employee-detail.html', controller: EmployeeDetailCtrl })
-        .otherwise({ redirectTo: '/angulardemo/employees' });
+        .otherwise({ redirectTo: '/angulardemo/employees' })
     ;
     $locationProvider.html5Mode(true);
  });
