@@ -21,14 +21,14 @@
     </div>
 </div>
 <div class="results">
-    <!-- new items button
+
+    <!-- new items button -->
     <div class="card column clickable add-new-card">
-        <img class="cardPicture" src="@Url.Content("~/Content/Images/AddEmployee.png")" alt="Agregar nuevo..."  />
+        <img class="cardPicture" src="/Content/Images/AddEmployee.png" alt="Agregar nuevo..."  />
         <div class="cardDescription">
-            <p>@Html.ActionLink("Agregar nuevo...", "Create", null, new { @class = "clickable-link" })</p>
+            <p><a href="/employees/create" target="_self" class="clickable-link">Agregar nuevo...</a></p>
         </div>
     </div>
-    -->
 
     <!-- cards -->
     <div class="card column clickable item-card" ng-repeat="item in employees" ng-controller="EmployeeListItemCtrl">
@@ -39,7 +39,7 @@
             src="/Content/Images/NoPicture.png"
             alt="No picture for {{getFullName()}}" />
         <div class="cardDescription">
-            <p class="name"><a class="clickable-link" href="/employees/edit/{{item.Id}}">
+            <p class="name"><a class="clickable-link" href="/employees/edit/{{item.Id}}" target="_self">
                 <span ng-show="hasFullName()">{{getFullName()}}</span>
                 <i ng-hide="hasFullName()">Sin nombre</i>
             </a></p>
