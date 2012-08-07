@@ -1,4 +1,6 @@
-﻿'use strict';
+﻿/// <reference path="../../Scripts/underscore.js" />
+/// <reference path="../lib/angular/angular.js" />
+'use strict';
 
 /* Controllers */
 
