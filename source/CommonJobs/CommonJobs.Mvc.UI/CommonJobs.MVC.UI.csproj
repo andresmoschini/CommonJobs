@@ -184,6 +184,7 @@
     <Content Include="Content\Tests\FileListingTest.html" />
     <Content Include="Content\Tests\qunit\qunit.css" />
     <Content Include="Content\Tests\qunit\qunit.js" />
+    <Content Include="Scripts\jquery.fileupload.js" />
     <Content Include="Scripts\jquery.Jcrop.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js">

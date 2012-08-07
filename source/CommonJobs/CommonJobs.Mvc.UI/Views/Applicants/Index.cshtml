@@ -64,6 +64,7 @@
                     <label>¿Con entrevistas?</label><input type="checkbox" id="HaveInterviewCheck" name="HaveInterview" @(Model.HaveInterview ? "checked='checked'" : string.Empty)/>
                     <label>¿Con entrevistas técnicas?</label><input type="checkbox" id="HaveTechnicalInterviewCheck" name="HaveTechnicalInterview" @(Model.HaveTechnicalInterview ? "checked='checked'" : string.Empty) />
                     <br /><label>¿Buscar en adjuntos?</label><input type="checkbox" id="SearchInAttachmentsCheck" name="SearchInAttachments" @(Model.SearchInAttachments ? "checked='checked'" : string.Empty) />
+                    <input id="fileupload" type="file" name="fileName" data-url="/Attachments/Post/applicants/193" multiple>
                 </div>
             </form>
             <p id="resultCountNotice">Hay <span id="resultCount">0</span> resultado(s).</p>
