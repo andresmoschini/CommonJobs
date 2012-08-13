@@ -14,8 +14,8 @@
                 <label>¿Buscar en notas?</label><input type="checkbox" id="SearchInNotesCheck" name="SearchInNotes" @(Model.SearchInNotes ? "checked='checked'" : string.Empty) />
                 <label>¿Buscar en adjuntos?</label><input type="checkbox" id="SearchInAttachmentsCheck" name="SearchInAttachments" @(Model.SearchInAttachments ? "checked='checked'" : string.Empty) />
             </div>
-            <p id="resultCountNotice">Hay <span id="resultCount">0</span> resultado(s).</p>
             -->
+            <p id="resultCountNotice" ng-pluralize count="resultCount" when="{'0': 'No hay resultados.', 'one': 'Hay solo un resultado.', 'other': 'Hay {} resultado(s).'}"></p>
         </div>
         <div class="twocol last"></div>
     </div>
