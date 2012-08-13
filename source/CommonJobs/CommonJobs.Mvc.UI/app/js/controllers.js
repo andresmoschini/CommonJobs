@@ -54,7 +54,7 @@ function EmployeeListCtrl($scope, Employee, $location) {
 }
 
 function EmployeeListItemCtrl($scope, $location) {
-    //TODO: esto es feo y raro
+    //TODO: esto es feo y raro ya que "item" es un nombre que viene de la vista
     var employee = $scope.item;
 
     $scope.hasPictureUrl = function () {
