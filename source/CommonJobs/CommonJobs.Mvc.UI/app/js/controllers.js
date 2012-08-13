@@ -6,7 +6,9 @@
 
 function EmployeeListCtrl($scope, Employee, $location) {
     var qParams = {
-        term: 'term'
+        term: 'term',
+        searchInNotes: 'SearchInNotes',
+        searchInAttachments: 'SearchInAttachments'
     };
 
     var bunchSize = 128;
@@ -16,16 +18,23 @@ function EmployeeListCtrl($scope, Employee, $location) {
     $scope.lastParameters = null;
     $scope.resultCount = null;
 
-    $scope.term = $location.search()[qParams.term];
-    
-    $scope.$watch("term", function (newValue) {
-        newValue = newValue ? newValue : null;
-        $location.search(qParams.term, newValue).replace().preventLocationChangedEvent();
-        search();
-    });
-    
+    function bindQueryStringParameters(mapping) {
+        var queryStringValues = $location.search();
+        for (var scopeKey in qParams) {
+            (function (queryStringValues, scopeKey, queryKey) {
+                $scope[scopeKey] = queryStringValues[queryKey];
+                $scope.$watch(scopeKey, function (newValue) {
+                    newValue = newValue ? newValue : null;
+                    $location.search(queryKey, newValue).replace().preventLocationChangedEvent();
+                    search();
+                });
+            }(queryStringValues, scopeKey, qParams[scopeKey]));
+        }
+    }
+    bindQueryStringParameters(qParams);
+        
     $scope.noMoreItems = function () {
-        return $scope.resultCount <= $scope.employees.length;
+        return !$scope.employees || $scope.resultCount <= $scope.employees.length;
     };
 
     var OnlyLastCallback = function () {
@@ -45,12 +54,12 @@ function EmployeeListCtrl($scope, Employee, $location) {
     };
     var onlyLastCallback = new OnlyLastCallback();
 
-    function query(parameters) {
+    function query(parameters, clean) {
         var prepared = onlyLastCallback.prepare(
             function (results, parameters) {
                 $scope.lastParameters = parameters;
                 $scope.loading = false;
-                $scope.employees = $scope.employees.concat(results.Items);
+                $scope.employees = clean ? results.Items : $scope.employees.concat(results.Items);
                 $scope.resultCount = results.TotalResults;
             });
         $scope.loading = true;
@@ -62,7 +71,7 @@ function EmployeeListCtrl($scope, Employee, $location) {
     $scope.getMore = function () {
         if ($scope.lastParameters) {
             $scope.lastParameters.skip = ($scope.lastParameters.skip || 0) + bunchSize;
-            query($scope.lastParameters);
+            query($scope.lastParameters, false);
         }
     }
 
@@ -73,8 +82,14 @@ function EmployeeListCtrl($scope, Employee, $location) {
         if ($scope.term) {
             parameters.Term = $scope.term;
         }
-        $scope.employees = [];
-        query(parameters);
+        if ($scope.searchInNotes) {
+            parameters.SearchInNotes = $scope.searchInNotes;
+        }
+        if ($scope.searchInAttachments) {
+            parameters.SearchInAttachments = $scope.searchInAttachments;
+        }
+        
+        query(parameters, true);
     }
 }
 
