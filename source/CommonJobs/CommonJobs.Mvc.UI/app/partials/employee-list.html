@@ -51,11 +51,11 @@
         </div>
     </div>
 
-    <!-- Get more items button
-    <div class="card column loading get-more-items">
-        <p class="ready-content">Click para obtener más...</p>
+    <!-- more items button -->
+    <div class="card column get-more-items" ng-hide="noMoreItems()">
+        <p class="ready-box" ng-hide="loading" ng-click="getMore()">Click para obtener más...</p>
+        <div class="loading-box" ng-show="loading"></div>
     </div>
-    -->
 </div>
 
 <div style="clear:both;"></div>

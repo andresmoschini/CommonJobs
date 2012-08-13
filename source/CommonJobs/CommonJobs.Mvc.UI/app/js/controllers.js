@@ -9,6 +9,13 @@ function EmployeeListCtrl($scope, Employee, $location) {
         term: 'term'
     };
 
+    var bunchSize = 128;
+
+    $scope.loading = true;
+    $scope.noMoreItems = false;
+    $scope.lastParameters = null;
+    $scope.resultCount = null;
+
     $scope.term = $location.search()[qParams.term];
     
     $scope.$watch("term", function (newValue) {
@@ -17,6 +24,9 @@ function EmployeeListCtrl($scope, Employee, $location) {
         search();
     });
     
+    $scope.noMoreItems = function () {
+        return $scope.resultCount <= $scope.employees.length;
+    };
 
     var OnlyLastCallback = function () {
         var previous = null;
@@ -33,23 +43,38 @@ function EmployeeListCtrl($scope, Employee, $location) {
             return previous;
         };
     };
-
     var onlyLastCallback = new OnlyLastCallback();
 
-    function search() {
-        var parameters = {};
-        if ($scope.term) {
-            parameters.Term = $scope.term;
-        }
-
+    function query(parameters) {
         var prepared = onlyLastCallback.prepare(
             function (results, parameters) {
-                $scope.employees = results.Items;
+                $scope.lastParameters = parameters;
+                $scope.loading = false;
+                $scope.employees = $scope.employees.concat(results.Items);
+                $scope.resultCount = results.TotalResults;
             });
-
+        $scope.loading = true;
         Employee.query(parameters, function (results) {
             prepared.callback(results, parameters);
         });
+    }
+
+    $scope.getMore = function () {
+        if ($scope.lastParameters) {
+            $scope.lastParameters.skip = ($scope.lastParameters.skip || 0) + bunchSize;
+            query($scope.lastParameters);
+        }
+    }
+
+    function search() {
+        var parameters = {
+            Take: bunchSize
+        };
+        if ($scope.term) {
+            parameters.Term = $scope.term;
+        }
+        $scope.employees = [];
+        query(parameters);
     }
 }
 
