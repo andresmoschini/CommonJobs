@@ -25,7 +25,7 @@ function EmployeeListCtrl($scope, Employee, $location) {
                 $scope[scopeKey] = queryStringValues[queryKey];
                 $scope.$watch(scopeKey, function (newValue) {
                     newValue = newValue ? newValue : null;
-                    $location.search(queryKey, newValue).replace().preventLocationChangedEvent();
+                    $location.search(queryKey, newValue).replace();
                     search();
                 });
             }(queryStringValues, scopeKey, qParams[scopeKey]));
