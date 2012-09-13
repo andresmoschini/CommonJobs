@@ -275,6 +275,15 @@
                         { controlLink: "Date", name: "ExpirationDate", field: "ExpirationDate", uiDateFormat: "d/m/y" }
                     ]
                 }
+            },
+            LinkedInLink: {
+                controlLink: "Text",
+                name: "LinkedInLink",
+                valueToContent: function (value) {
+                    if (!value) return value;
+
+                    return value + " <a href='" + value + "'>(visitar)</a>";
+                }
             }
         }
     });
@@ -286,13 +295,43 @@
             this.dataBinder.setModel(model);
         },
         initialize: function () {
+            var me = this;
             this.dataBinder = new App.EditApplicantAppViewDataBinder({ el: this.el, model: this.model });
             this.model.on("change:IsHighlighted", this.refreshHighlightedView, this);
             this.refreshHighlightedView();
             if (this.options.forceReadOnly) {
                 this.$el.addClass("edition-force-readonly");
                 this.editionReadonly();
-            }   
+            }
+
+            var dragAndDrop = new DragAndDrop();
+            dragAndDrop.prepareFileDropzone(this.el, {
+                input: this.$(".dropzoneinput"),
+                url: urlGenerator.action("Post", "Attachments", /* TODO */this.model.get('Id')),
+                done: function (e, data) {
+                    var notes = me.model.get("Notes");
+                    _.each(data.result.attachments, function (attachment) {
+                        notes.add({
+                            Note: "QuickAttachment!",
+                            Attachment: attachment,
+                        });
+                    });
+                    new UploadModal($('#generic-modal'))
+                        .text(".person-name", me.$("h1.fullName .view-editable").text())
+                        .title("Archivos subidos (agregados a las notas)")
+                        .files(data)
+                        .modal();
+                },
+                fail: function (e, data, $el) {
+                    new UploadModal($('#generic-modal'))
+                        .error()
+                        .text(".person-name", me.$("h1.fullName .view-editable").text())
+                        .title("Error adjuntando archivos")
+                        .files(data)
+                        .modal();
+                }
+            });
+
         },
         events: {
             "click .saveApplicant": "saveApplicant",
@@ -376,5 +415,10 @@ $(function () {
         el: $("#EditApp"),
         forceReadOnly: ViewData.forceReadOnly,
         model: new App.Applicant(ViewData.applicant)
+    });
+    
+    $('#linkedinLink').attr('href', $('.editable-field[data-bind="LinkedinLink"] input').val());
+    $('.editable-field[data-bind="LinkedinLink"] input').blur(function(){
+       $('#linkedinLink').attr('href', $('.editable-field[data-bind="LinkedinLink"] input').val());
     });
 });

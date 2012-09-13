@@ -4,14 +4,18 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using CommonJobs.Utilities;
+using NLog;
 
 namespace CommonJobs.Domain
 {
     public class Employee: Person
     {
+        private static Logger log = LogManager.GetCurrentClassLogger();
+
         public Employee()
         {
             Vacations = new VacationList();
+            AttachmentsBySlot = new List<SlotWithAttachment>();
         }
 
         [Display(Name = "Fecha Inicio")]
@@ -109,9 +113,47 @@ namespace CommonJobs.Domain
         [Display(Name = "Historial de sueldos")]
         public List<SalaryChange> SalaryChanges { get; set; }
 
-        public override IEnumerable<AttachmentReference> AllAttachmentReferences
+        public override IEnumerable<SlotWithAttachment> AllAttachmentReferences
         {
-            get { return base.AllAttachmentReferences.Union(Notes.EmptyIfNull().Select(x => x.Attachment)).Where(x => x != null); }
+            get 
+            { 
+                return base.AllAttachmentReferences
+                    .Union(SlotWithAttachment.GenerateFromNotes(Notes))
+                    .Union(AttachmentsBySlot.EmptyIfNull().Where(x => x.Attachment != null)); 
+            }
+        }
+
+        public List<SlotWithAttachment> AttachmentsBySlot { get; set; }
+
+        public SlotWithAttachment AddAttachment(AttachmentReference attachmentReference, AttachmentSlot slot)
+        {
+            if (AttachmentsBySlot == null)
+            {
+                AttachmentsBySlot = new List<SlotWithAttachment>();
+            }
+            else if (AttachmentsBySlot.Any(x => x.SlotId == slot.Id && x.Attachment != null))
+            {
+                log.Dump(
+                    LogLevel.Error,
+                    new { slot, attachmentReference },
+                    "Slot is not free");
+                throw new ApplicationException(string.Format("Slot `{0}` is not free", slot.Id));
+            }
+            else
+            {
+                AttachmentsBySlot.RemoveAll(x => x.Attachment == null);
+            }
+
+            var added = new SlotWithAttachment()
+            {
+                Date = DateTime.Now,
+                Attachment = attachmentReference,
+                SlotId = slot.Id
+            };
+
+            AttachmentsBySlot.Add(added);
+
+            return added;
         }
     }
 }
