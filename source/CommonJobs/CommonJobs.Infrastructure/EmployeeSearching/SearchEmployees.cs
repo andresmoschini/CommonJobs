@@ -33,6 +33,11 @@ namespace CommonJobs.Infrastructure.EmployeeSearching
             query = query.Where(x => x.IsEmployee);
 
             Expression<Func<Employee_QuickSearch.Projection, bool>> predicate = x =>
+                     x.AttachmentNames.Any(y => y.StartsWith(Parameters.Term))
+                    || x.Terms.StartsWith(Parameters.Term);
+
+            /*
+            Expression<Func<Employee_QuickSearch.Projection, bool>> predicate = x =>
                     x.FullName1.StartsWith(Parameters.Term)
                     || x.FullName2.StartsWith(Parameters.Term)
                     || x.Skills.StartsWith(Parameters.Term)
@@ -42,6 +47,7 @@ namespace CommonJobs.Infrastructure.EmployeeSearching
                     || x.FileId.StartsWith(Parameters.Term)
                     || x.Platform.StartsWith(Parameters.Term)
                     || x.Terms.StartsWith(Parameters.Term);
+            */
 
             if (Parameters.SearchInNotes)
                 predicate = predicate.Or(x => x.Notes.StartsWith(Parameters.Term));
@@ -58,6 +64,19 @@ namespace CommonJobs.Infrastructure.EmployeeSearching
                 query = query.Take(Parameters.Take);
 
             var result = query.AsProjection<EmployeeSearchResult>().ToArray();
+
+            if (result.Length == 0)
+            {
+                var query2 = RavenSession
+                    .Query<Employee_QuickSearch.Projection, Employee_QuickSearch>()
+                    .Where(x => x.Terms.StartsWith(Parameters.Term));
+                
+                var result2 = query2.ToArray();
+
+                var suggestionTerms = query2.Suggest().Suggestions;
+
+            }
+
             Stats = stats;
             return result;
         }
