@@ -81,7 +81,6 @@ namespace CommonJobs.Infrastructure.EmployeeSearching
                         employee.Platform,
                         employee.CurrentPosition,
                         employee.CurrentProject,
-                        employee.Photo,
                         string.Format("{0:yyyy-MM-dd}", employee.HiringDate),
                         string.Format("{0:dd-MM-yyyy}", employee.HiringDate),
                         string.Format("{0:MM-dd-yyyy}", employee.HiringDate),

@@ -65,16 +65,24 @@ namespace CommonJobs.Infrastructure.EmployeeSearching
 
             var result = query.AsProjection<EmployeeSearchResult>().ToArray();
 
-            if (result.Length == 0)
+            if (stats.TotalResults == 0)
             {
+                var t = Parameters.Term
+                    .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(x => x.TrimEnd('?', '*') + "*");
+
+                var t1 = string.Join(" ", t);
+
+                //|| x.Terms.StartsWith(Parameters.Term);
                 var query2 = RavenSession
                     .Query<Employee_QuickSearch.Projection, Employee_QuickSearch>()
-                    .Where(x => x.Terms.StartsWith(Parameters.Term));
+                    .Search(x => x.Terms, t1)
+                    .As<Employee>();
                 
                 var result2 = query2.ToArray();
 
                 var suggestionTerms = query2.Suggest().Suggestions;
-
+                var s = suggestionTerms;
             }
 
             Stats = stats;
