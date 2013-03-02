@@ -27,10 +27,16 @@
 
     ScriptManager.RegisterGlobalJavascript("baseUrl", Url.Content("~"), priority: 900);
     ScriptManager.RegisterJs(Url.Content("~/Scripts/url-generator.js"), priority: 900);
+
+    ScriptManager.RegisterJs(Url.Content("~/Areas/MyMenu/AngularApp/js/app.js"), priority: 900);
+    ScriptManager.RegisterJs(Url.Content("~/Areas/MyMenu/AngularApp/js/services.js"), priority: 900);
+    ScriptManager.RegisterJs(Url.Content("~/Areas/MyMenu/AngularApp/js/controllers.js"), priority: 900);
+    ScriptManager.RegisterJs(Url.Content("~/Areas/MyMenu/AngularApp/js/filters.js"), priority: 900);
+    ScriptManager.RegisterJs(Url.Content("~/Areas/MyMenu/AngularApp/js/directives.js"), priority: 900);
 }
 
 <!DOCTYPE html>
-<html class="bootstrap-scope">
+<html class="bootstrap-scope" ng-app="myMenu">
 <head>
     <meta charset="utf-8" />
     <title>@ViewBag.Title</title>
@@ -77,6 +83,9 @@
             
             <div class="nav-collapse collapse">
                 <ul class="nav">
+                    <li><a href="#/Order">Pedido del día</a></li>
+                    <li><a href="#/Admin">Definición de los menues</a></li>
+                    <li><a href="#/">Mi Menú</a></li>
                     @*
                     //TODO: replace by angular links
                     @Html.NavItemAction("Pedido del día", "Order")
@@ -102,7 +111,7 @@
     </div>
     <br /><br /><br />
     <div class="body-container">
-        <div>CONTENT!!!</div>
+        <div ng-view>CONTENT!!!</div>
     </div>
     <footer>
         <div class="container">

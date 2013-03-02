@@ -138,6 +138,11 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="CJLogic\CalculateVacations.ts" />
+    <Content Include="Areas\MyMenu\AngularApp\js\app.js" />
+    <Content Include="Areas\MyMenu\AngularApp\js\services.js" />
+    <Content Include="Areas\MyMenu\AngularApp\js\controllers.js" />
+    <Content Include="Areas\MyMenu\AngularApp\js\filters.js" />
+    <Content Include="Areas\MyMenu\AngularApp\js\directives.js" />
     <Content Include="CJLogic\CalculateVacations.js">
       <DependentUpon>CalculateVacations.ts</DependentUpon>
     </Content>
@@ -511,6 +516,9 @@
     <Content Include="Views\Account\LogOn.cshtml" />
     <Content Include="Views\GoogleAuthentication\Error.cshtml" />
     <Content Include="Areas\MyMenu\Views\MyMenu\AngularApp.cshtml" />
+    <Content Include="Areas\MyMenu\AngularApp\partials\Admin.html" />
+    <Content Include="Areas\MyMenu\AngularApp\partials\Edit.html" />
+    <Content Include="Areas\MyMenu\AngularApp\partials\Order.html" />
     <None Include="_bin_deployableAssemblies\FSharp.Core.dll" />
   </ItemGroup>
   <ItemGroup>
