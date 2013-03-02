@@ -37,6 +37,11 @@ namespace CommonJobs.Mvc.UI.Areas.MyMenu
             }
         }
 
+        public ActionResult AngularApp()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             return Edit(DetectUser(), true);

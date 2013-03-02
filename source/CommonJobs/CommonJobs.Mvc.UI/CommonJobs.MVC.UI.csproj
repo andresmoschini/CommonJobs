@@ -510,6 +510,7 @@
     <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
     <Content Include="Views\Account\LogOn.cshtml" />
     <Content Include="Views\GoogleAuthentication\Error.cshtml" />
+    <Content Include="Areas\MyMenu\Views\MyMenu\AngularApp.cshtml" />
     <None Include="_bin_deployableAssemblies\FSharp.Core.dll" />
   </ItemGroup>
   <ItemGroup>
