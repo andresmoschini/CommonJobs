@@ -62,6 +62,7 @@ function OrderCtrl($scope) {
             })
         });
     }), "placeKey");
+    console.log($scope.placeSummaries);
     $scope.detail = _.sortBy(_.map(order.DetailByUserName, function (element, key) {
         return ({
             userName: key,

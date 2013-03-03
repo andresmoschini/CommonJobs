@@ -42,14 +42,14 @@
     </div>
 
     <ul class="nav nav-tabs" id="myTab">
-        <li class="active"><a href="#completeOrder" data-toggle="tab">Pedido completo</a></li>
-        <!-- ko foreach: placeSummaries -->
-        <li><a data-toggle="tab" data-bind="text: placeName, attr: { href: '#tab' + placeKey}"></a></li>
-        <!-- /ko -->
+        <li class="active"><a href="#/Order" data-toggle="tab">Pedido completo</a></li>
+        <li ng-repeat="place in placeSummaries">
+            <a data-toggle="tab" ng-href="#/Order/{{place.placeKey}}">{{place.placeName}}</a>
+        </li>
     </ul>
 
     <div class="tab-content" style="overflow: inherit">
-        <div class="tab-pane active" id="completeOrder">
+        <div class="tab-pane active" id="#/Order">
             <h4>Pedido completo</h4>
             <table class="table table-striped table-bordered table-hover table-condensed">
                 <thead>
@@ -60,16 +60,15 @@
                         <th>Cantidad</th>
                     </tr>
                 </thead>
-                <tbody data-bind="foreach: placeSummaries">
-                    <!-- ko foreach: optionSummaries -->
+                <!-- TODO: do not repeat tbody -->
+                <tbody ng-repeat="place in placeSummaries">
                     <!-- ko if: quantity -->
-                    <tr>
-                        <td data-bind="text: $parent.placeName"></td>
-                        <td data-bind="text: optionName"></td>
-                        <td data-bind="text: food"></td>
-                        <td data-bind="text: quantity"></td>
+                    <tr ng-repeat="option in place.optionSummaries">
+                        <td>{{place.placeName}}</td>
+                        <td>{{option.optionName}}</td>
+                        <td>{{option.food}}</td>
+                        <td>{{option.quantity}}</td>
                     </tr>
-                    <!-- /ko -->
                     <!-- /ko -->
                 </tbody>
             </table>
